@@ -5,8 +5,8 @@ LDPARAMS = -melf_i386
 objects = obj/loader.o \
           obj/kernel.o
 
-
 run: kernel.iso
+	qemu-system-x86_64 -boot d -cdrom kernel.iso -m 80
 
 obj/%.o: src/%.cpp
 	mkdir -p $(@D)
@@ -20,9 +20,7 @@ kernel.bin: linker.ld $(objects)
 	ld $(LDPARAMS) -T $< -o $@ $(objects)
 
 kernel.iso: kernel.bin
-	mkdir iso
-	mkdir iso/boot
-	mkdir iso/boot/grub
+	mkdir -p iso/boot/grub
 	cp kernel.bin iso/boot/kernel.bin
 	echo 'set timeout=1'                      > iso/boot/grub/grub.cfg
 	echo 'set default=0'                     >> iso/boot/grub/grub.cfg

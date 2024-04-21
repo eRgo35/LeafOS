@@ -1,6 +1,7 @@
 # Specific files
 kernel.iso
 kernel.bin
+iso
 
 # Compiled Object files
 *.slo
