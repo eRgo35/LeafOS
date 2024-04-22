@@ -31,6 +31,7 @@
             grub2
             xorriso
             qemu
+            nasm
           ];
 
           # Set any environment variables for your dev shell
