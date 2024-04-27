@@ -1,34 +1,24 @@
-bits 16
-org 0x7C00 ; after 0xAA55 is detected, CPU jumps to 0x7C00
-boot:
+[ORG 0x7c00]
+
+  xor ax, ax
+  mov ds, ax
+
   mov si, msg
-  call print
-  mov si, copy
-  call print
-  mov si, copy2
-  call print
-
-halt:
-  cli
-  hlt
-
-print:
-  mov ah, 0x0E
-  lodsb 
-  or al, al 
-  jz end 
+  cld
+boot_loop:
+  lodsb
+  or al, al
+  jz hang
+  mov ah, 0x0e
+  mov bh, 0 
   int 0x10
-  jmp print
-end:
-  mov al, 10
-  int 0x10
-  mov al, 13
-  int 0x10
-  ret
+  jmp boot_loop 
 
-msg: db "Welcome to Leaf Bootloader v1.0", 0
-copy: db "Copyright(c) 2024 Michael Czyz", 0 
-copy2: db "All rights reserved.", 0
+hang:
+  jmp hang
 
-times 510 - ($-$$) db 0 ; pad remaining bytes with zeroes
-dw 0xAA55 ; magic jump sequence
+msg db 'Welcome to LeafOS', 13, 10, 0
+  times 510 - ($-$$) db 0 
+  db 0x55 
+  db 0xAA
+

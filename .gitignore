@@ -1,6 +1,6 @@
 # Specific files
-kernel.iso
-kernel.bin
+*.iso
+*.bin
 iso
 
 # Compiled Object files
