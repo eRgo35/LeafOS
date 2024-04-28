@@ -11,6 +11,9 @@ start:
   mov ax, 0xb800
   mov es, ax
 
+  mov si, welcome_msg
+  call printf
+
   cli
   mov bx, 0x09
   shl bx, 2
@@ -48,6 +51,7 @@ done:
   iret
 
 port60 dw 0 
+welcome_msg dw "Welcome to LeafOS Bootloader v0.1!", 0
 
   times 510-($-$$) db 0 
   dw 0xAA55

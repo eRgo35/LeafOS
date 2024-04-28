@@ -1,4 +1,5 @@
-outchar: call print_char
+outchar: 
+  call print_char
 printf:
   lodsb
   cmp al, 0
