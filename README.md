@@ -9,7 +9,11 @@ to get all required dependencies up and running
 
 To build bootloader:
 ```sh 
-nasm -f bin boot/boot.asm -o boot.bin
+cd boot
+```
+
+```sh 
+nasm -f bin boot.asm -o boot.bin
 ```
 
 To test using qemu:
