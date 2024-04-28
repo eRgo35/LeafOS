@@ -32,6 +32,13 @@
             xorriso
             qemu
             nasm
+            libmpc
+            gmp
+            mpfr
+            texinfo
+            bison
+            flex
+            coreboot-toolchain.x64
           ];
 
           # Set any environment variables for your dev shell

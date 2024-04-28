@@ -25,3 +25,9 @@ To burn onto your usb device:
 ```sh 
 dd if=boot.bin of=/dev/{device} bs=1M
 ```
+
+```
+# export PREFIX="$HOME/opt/cross"
+# export TARGET=x86_64-elf
+# export PATH="$PREFIX/bin:$PATH"
+```
