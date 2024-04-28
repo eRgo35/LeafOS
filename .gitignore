@@ -2,6 +2,9 @@
 *.iso
 *.bin
 iso
+*.tar.gz
+*.tar.xz
+gcc*/**
 
 # Compiled Object files
 *.slo

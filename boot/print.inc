@@ -1,55 +1,56 @@
-outchar: 
-  call print_char
-printf:
-  lodsb
+dochar:   
+  call cprint  
+
+sprint:   
+  lodsb    
   cmp al, 0
-  jne outchar
-  add byte [ypos], 1
+  jne dochar  
+  add byte [ypos], 1 
   mov byte [xpos], 0
   ret
 
-print_char:
-  mov ah, 0x0f
-  mov cx, ax
+cprint: 
+  mov ah, 0x0F 
+  mov cx, ax   
   movzx ax, byte [ypos]
-  mov dx, 160
-  mul dx
+  mov dx, 160 
+  mul dx    
   movzx bx, byte [xpos]
-  shl bx, 1
+  shl bx, 1  
 
-  mov di, 0 
+  mov di, 0  
   add di, ax
-  mov di, bx
-  
-  mov ax, cx
-  stosw
-  add byte [xpos], 1
+  add di, bx    
+
+  mov ax, cx   
+  stosw       
+  add byte [xpos], 1 
 
   ret
-
+ 
 printreg16:
   mov di, outstr16
   mov ax, [reg16]
   mov si, hexstr
-  mov cx, 4
+  mov cx, 4 
 
 hexloop:
-  rol ax, 4
+  rol ax, 4 
   mov bx, ax
-  and bx, 0x0f
+  and bx, 0x0f  
   mov bl, [si + bx]
   mov [di], bl
-  inc di 
-  dec cx 
-  jnz hexloop 
+  inc di
+  dec cx
+  jnz hexloop
 
-  mov si, outstr16 
-  call printf 
+  mov si, outstr16
+  call sprint
 
   ret
-
-xpos db 0 
-ypos db 0 
-hexstr db '0123456789ABCDEF'
-outstr16 db '0000', 0 
-reg16 dw 0
+ 
+xpos   db 0
+ypos   db 0
+hexstr   db '0123456789ABCDEF'
+outstr16   db '0000', 0  
+reg16   dw    0  
