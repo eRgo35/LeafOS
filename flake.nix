@@ -39,6 +39,8 @@
             bison
             flex
             coreboot-toolchain.x64
+            glibc
+            binutils-unwrapped
           ];
 
           # Set any environment variables for your dev shell

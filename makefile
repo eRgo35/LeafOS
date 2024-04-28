@@ -2,19 +2,19 @@ GCCPARAMS = -m32 -Iinclude -fno-use-cxa-atexit -nostdlib -fno-builtin -fno-rtti 
 ASPARAMS = --32
 LDPARAMS = -melf_i386
 
-objects = obj/loader.o \
+objects = obj/boot.o \
           obj/kernel.o
 
 run: kernel.iso
-	qemu-system-x86_64 -boot d -cdrom kernel.iso -m 80
+	qemu-system-x86_64 -cdrom kernel.iso
 
 obj/%.o: src/%.cpp
 	mkdir -p $(@D)
 	gcc $(GCCPARAMS) -c -o $@ $<
 
-obj/%.o: src/%.s
+obj/%.o: src/%.asm
 	mkdir -p $(@D)
-	as $(ASPARAMS) -o $@ $<
+	nasm -felf32 $< -o $@
 
 kernel.bin: linker.ld $(objects)
 	ld $(LDPARAMS) -T $< -o $@ $(objects)
